@@ -1,0 +1,4 @@
+PersonID,FullName,Gender,BirthYear,FatherID,MotherID
+P0001,Ahmad,L,1940,,
+P0002,Fatimah,P,1945,,
+P0003,Hasan,L,1970,P0001,P0002
