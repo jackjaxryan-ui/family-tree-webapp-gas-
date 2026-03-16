@@ -1,4 +1,4 @@
-PersonID,FullName,Gender,BirthYear,FatherID,MotherID
-P0001,Ahmad,L,1940,,
-P0002,Fatimah,P,1945,,
-P0003,Hasan,L,1970,P0001,P0002
+PersonID,FullName,DisplayName,Gender,BirthYear,IsDeceased,DeathYear,IsMarried,FatherID,MotherID,SpouseID,CreatedAt,UpdatedAt,CreatedBy,UpdatedBy,Notes
+P0001,Ahmad,Ahmad (1940),L,1940,TRUE,2005,TRUE,,,P0002,3/14/2026 23:45:27,3/14/2026 23:45:27,,,
+P0002,Fatimah,Fatimah (1945),P,1945,TRUE,2011,TRUE,,,P0001,3/14/2026 23:45:27,3/14/2026 23:45:27,,,
+P0003,Hasan,Hasan (1966),P,1966,FALSE,,TRUE,P0001,P0002,,3/14/2026 23:45:27,3/14/2026 23:45:27,,,
