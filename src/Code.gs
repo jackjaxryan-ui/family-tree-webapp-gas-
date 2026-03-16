@@ -3,7 +3,7 @@
  * Backend: Google Sheets
  * Sheet required: Persons
  */
-const SPREADSHEET_ID = '17I8THF855K9tbIWBgh44aD3vd4ZZL2xa8P3Ye31u-og';
+const SPREADSHEET_ID = 'paste-spreadsheetID-here';
 const PERSONS_SHEET = 'Persons';
 
 /* =========================
@@ -761,7 +761,7 @@ function collectDuplicateWarnings_(payload) {
 
 function resetFamilyData() {
   const email = safeUserEmail_();
-  const allowed = ['rdiditfa@gmail.com'];
+  const allowed = ['youremail@email.com'];
 
   if (!allowed.includes(email)) {
     throw new Error('Anda tidak punya izin untuk reset data.');
