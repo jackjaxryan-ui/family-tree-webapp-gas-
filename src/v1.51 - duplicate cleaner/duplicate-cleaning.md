@@ -1,222 +1,208 @@
-# 🧬 Panduan Membersihkan Duplicate Data di Persons
+# 🧬 Duplicate Cleanup Guide (Persons)
 
-Panduan ini digunakan untuk membersihkan data duplikat di `Persons` tanpa merusak relasi ke:
+This guide explains how to clean duplicate records in `Persons` without breaking relationships in:
 - `Families`
 - `FamilyChildren`
 
 ---
 
-## 🎯 Tujuan
+## 🎯 Purpose
 
-- Menghapus data orang yang double input  
-- Menjaga relasi keluarga tetap konsisten  
-- Menghindari broken reference setelah cleanup  
+- Remove duplicate person entries  
+- Preserve family relationships  
+- Prevent broken references  
 
 ---
 
-## 🧭 Alur Kerja
+## 🧭 Workflow
 
-### 1. Backup Data (WAJIB)
+### 1. Backup (Required)
 
-Sebelum melakukan apapun, jalankan:
+Run:
 
 backupAllFamilySheets()
 
-Ini akan menyimpan snapshot semua sheet:
+Creates a snapshot of:
 - Persons  
 - Families  
 - FamilyChildren  
 
 ---
 
-### 2. Scan Kandidat Duplikat
+### 2. Scan for Duplicates
 
-Jalankan:
+Run:
 
 findDuplicateCandidates()
 
-Hasil:
-- Sheet baru / refresh: `DuplicateReview`
+Output:
+- `DuplicateReview` sheet
 
 ---
 
-### 3. Review di `DuplicateReview`
+### 3. Review Candidates
 
-Terdapat 2 tipe kandidat:
+Two types:
 
-- **STRICT** → Data sangat identik → aman untuk merge  
-- **LOOSE** → Mirip, tapi perlu review manual  
-
----
-
-### 4. Pahami Kolom Penting
-
-- **KeepPersonID** → ID yang dipertahankan  
-- **CandidatePersonID** → ID kandidat duplikat  
-- **ActionSuggestion** → Rekomendasi sistem  
-- **Decision** → Input manual (MERGE / kosong)  
-- **ManualNote** → Catatan tambahan  
+- **STRICT** → highly identical → safe to merge  
+- **LOOSE** → similar → requires manual review  
 
 ---
 
-### 5. Isi Keputusan Manual
+### 4. Key Columns
 
-Di kolom `Decision`:
-
-- isi **MERGE** → untuk kandidat yang ingin digabung  
-- kosongkan → jika belum yakin  
-- opsional: **SKIP** → untuk tandai abaikan  
-
-**Contoh:**
-
-- Keeper (misal P0051) → kosong  
-- P0054 → MERGE  
-- P0057 → MERGE  
+- **KeepPersonID** → selected keeper  
+- **CandidatePersonID** → duplicate candidate  
+- **ActionSuggestion** → system hint  
+- **Decision** → MERGE / empty  
+- **ManualNote** → optional notes  
 
 ---
 
-### 6. (Opsional) Perbaiki Data Dulu
+### 5. Set Decision
 
-Jika ada data yang salah di `Persons`, perbaiki dulu:
+In `Decision` column:
 
+- **MERGE** → approve merge  
+- empty → skip / undecided  
+- optional: **SKIP**
+
+**Example:**
+- Keeper → leave empty  
+- Duplicates → set MERGE  
+
+---
+
+### 6. (Optional) Fix Data First
+
+Correct data in `Persons` if needed:
 - BirthYear  
 - FatherID / MotherID  
 - SpouseID  
 - Notes  
 
-Setelah itu jalankan ulang:
+Then rerun:
 
 findDuplicateCandidates()
 
-Keputusan (`Decision`) dan catatan (`ManualNote`) akan tetap tersimpan.
+Decisions and notes are preserved.
 
 ---
 
-### 7. Jalankan Merge
+### 7. Run Merge
 
-Setelah yakin, jalankan:
+Run:
 
 mergeDuplicatePersonsSafe()
 
 ---
 
-## ⚙️ Apa yang Dilakukan Merge
+## ⚙️ What Merge Does
 
-### Pada `Persons`
-- Menggabungkan duplikat ke keeper  
-- Update referensi:
+### Persons
+- Merge duplicates into keeper  
+- Update:
   - FatherID  
   - MotherID  
   - SpouseID  
 
 ---
 
-### Pada `Families`
+### Families
 - Update:
   - Person1ID  
   - Person2ID  
-- Menghapus family duplicate (jika jadi identik)  
+- Remove duplicate family rows  
 
 ---
 
-### Pada `FamilyChildren`
+### FamilyChildren
 - Update:
   - ChildID  
   - FamilyID  
-- Menghapus duplicate child link  
-- Mengurutkan ulang `ChildOrder`  
+- Remove duplicate links  
+- Reorder `ChildOrder`  
 
 ---
 
-### Tambahan
-- Log ke `MergeLog`  
-- Update counter `LAST_PERSON_COUNTER`  
+### Additional
+- Logs to `MergeLog`  
+- Updates `LAST_PERSON_COUNTER`  
 
 ---
 
-## ✅ Verifikasi Setelah Merge
+## ✅ Post-Merge Checks
 
-### 1. ID Lama Hilang
-Pastikan ID yang di-merge sudah tidak muncul di:
-- Persons  
-- Families  
-- FamilyChildren  
+1. Old IDs are gone  
+   - Persons  
+   - Families  
+   - FamilyChildren  
 
----
+2. Relationships are correct  
+   - parent  
+   - spouse  
+   - children  
 
-### 2. Relasi Tetap Benar
-Cek:
-- parent  
-- spouse  
-- children  
-
----
-
-### 3. Tidak Ada Duplicate Baru
-Cek:
-- Families  
-- FamilyChildren  
+3. No new duplicates  
+   - Families  
+   - FamilyChildren  
 
 ---
 
-## ⚠️ Rule Aman
+## ⚠️ Safe Merge Rules
 
-### Boleh di-MERGE jika:
-- Nama sama  
-- Gender sama  
-- BirthYear sama  
-- Father & Mother sama  
+Merge if:
+- Same name  
+- Same gender  
+- Same birth year  
+- Same parents  
 
----
-
-### Jangan di-MERGE jika:
-- Parent berbeda  
-- Spouse berbeda  
-- Data historis tidak jelas  
+Do NOT merge if:
+- Different parents  
+- Different spouse  
+- Unclear history  
 
 ---
 
-## 🔁 Workflow Singkat
+## 🔁 Quick Workflow
 
 backupAllFamilySheets()  
 findDuplicateCandidates()  
 
-→ Review di sheet  
-→ Isi Decision = MERGE  
+→ Review  
+→ Set Decision = MERGE  
 
 mergeDuplicatePersonsSafe()  
 
 ---
 
-## 💡 Best Practice
+## 💡 Best Practices
 
-- Merge bertahap (jangan semua sekaligus)  
-- Mulai dari kasus yang paling jelas  
-- Selalu backup sebelum merge  
-- Review hasil setelah setiap batch  
+- Merge in small batches  
+- Start with obvious duplicates  
+- Always backup first  
+- Verify after each merge  
 
 ---
 
-## 🚀 Tips Tambahan
+## 🚀 Common Cause
 
-Kasus duplicate paling umum:
-- double click submit  
-- koneksi lambat  
-- user submit berulang  
+Duplicates often come from:
+- double-click submit  
+- slow connection  
+- repeated user input  
 
-Contoh pola:
+Example:
 - P0051, P0054, P0057  
 
-Biasanya ini kandidat merge yang aman.
+---
+
+## 🧾 Notes
+
+- `findDuplicateCandidates()` is safe to rerun  
+- `Decision` and `ManualNote` are preserved  
+- Only rows with `Decision = MERGE` are processed  
 
 ---
 
-## 🧾 Catatan
-
-- `findDuplicateCandidates()` aman dijalankan ulang  
-- `Decision` dan `ManualNote` tidak akan hilang saat scan ulang  
-- Merge hanya berjalan untuk baris dengan `Decision = MERGE`  
-
----
-
-**Status: ✅ Siap dipakai untuk operasional cleanup data**
+**Status: ✅ Ready for operational use**
