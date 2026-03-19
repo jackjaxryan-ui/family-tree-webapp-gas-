@@ -1,73 +1,86 @@
 # Family Tree Web App (Google Apps Script)
 
-A simple web application to collect and manage **family tree data** using **Google Apps Script** and **Google Sheets** as the backend database.
+This repository is a **personal development log** for building a Family Tree web application using Google Apps Script and Google Sheets.
 
-The app allows users to input parents, spouse, and children, while automatically maintaining family relationships in a structured dataset.
-
----
-
-## Features
-
-- Add **parents, self, spouse, and children**
-- Use **existing members** or create **new records**
-- Automatic **relationship linking**
-- **Duplicate detection** to reduce accidental duplicates
-- Dashboard statistics:
-  - total family members
-  - number of generations
-  - last update timestamp
-- **Live update without page reload**
-- Mobile-friendly interface
+It documents the evolution from a simple data-entry form into a more structured genealogy data system.
 
 ---
 
-## Architecture
+## Overview
 
-Browser (HTML / JavaScript)  
-↓  
-Google Apps Script (backend)  
-↓  
-Google Sheets (database)
+The project focuses on:
 
-Google Sheets stores all family members and relationship references.
+* Collecting family data via a web form
+* Structuring relationships in a scalable way
+* Preparing data for future genealogy integration (e.g. GEDCOM / external tools)
 
 ---
 
-## Deployment
+## Current Architecture
 
-1. Create a Google Spreadsheet with a sheet named **Persons**
-2. Open **Extensions → Apps Script**
-3. Add the following files:
-   - Code.gs
-   - index.html
-   - appsscript.json
-4. Set the correct **SPREADSHEET_ID** in `Code.gs`
-5. Deploy as **Web App**
+The project has evolved from a flat `Persons` model into a normalized structure:
 
-Deployment menu:
+* **Persons** → individual records
+* **Families** → relationship (couple) entity
+* **FamilyChildren** → child linkage
 
-Deploy → New deployment → Web App
+This enables:
 
-Recommended settings:
-
-Execute as: Me  
-Who has access: Anyone
+* Multiple spouses
+* Cleaner parent-child relationships
+* Better support for tree visualization
 
 ---
 
-## Usage
+## What Makes It Interesting
 
-1. Select or create **Father**
-2. Select or create **Mother**
-3. Enter **Self**
-4. Add **Spouse** (optional)
-5. Add **Children**
-6. Click **Save**
-
-The system automatically links family relationships and updates statistics.
+* **Family-based model** instead of simple SpouseID
+* **Duplicate detection + safe merge tools**
+* **Migration utilities** from legacy structure
+* Early-stage **tree view implementation**
 
 ---
 
-## License
+## Current Working Version
 
-MIT License
+Active development is currently in:
+
+`src/v1.51 - duplicate cleaner`
+
+This version includes:
+
+* Family-based relationship system
+* Duplicate detection and merge module
+* Tree view enhancements
+
+---
+
+## Repository Structure
+
+* `src/` → versioned development builds
+* `docs/` → architecture, schema, and notes
+* `examples/` → sample data
+
+This structure reflects iterative development rather than a finalized production layout.
+
+---
+
+## Notes
+
+This repository is not intended as a polished production app.
+
+It is primarily used to:
+
+* Explore data modeling approaches for genealogy
+* Test relationship logic and edge cases
+* Build a foundation for future export and integration
+
+---
+
+## Next Direction
+
+* GEDCOM export
+* Improved tree visualization
+* More robust relationship editing
+
+---
