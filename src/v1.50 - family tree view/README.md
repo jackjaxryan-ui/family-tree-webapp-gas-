@@ -1,6 +1,6 @@
-# Family Tree Web App (Google Apps Script)
+# Family Tree Web App v1.50
 
-A web-based Family Tree application built using Google Apps Script with Google Sheets as the backend.
+A simple Google Apps Script web app for collecting family tree data and storing it in Google Sheets.
 
 This project is an evolution of version 1.0, introducing a more structured relationship model and new capabilities such as:
 
