@@ -1,9 +1,8 @@
 # Code.gs — Latest Version
 This README covers the **latest `Code.gs`** only.
 
-## added find-clean duplicate Persons function
+## added: find-clean duplicate Persons function
 This project evolves from a simple data-entry form into a more robust genealogy data engine with:
-
 * Normalized relationship structure (Families & FamilyChildren)
 * Multi-spouse support
 * Duplicate detection and safe merge tools
