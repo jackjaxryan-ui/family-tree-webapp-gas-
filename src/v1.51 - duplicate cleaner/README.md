@@ -1,5 +1,5 @@
-# Family Tree Web App v1.50 
-A simple Google Apps Script web app for collecting family tree data and storing it in Google Sheets.
+# Code.gs — Latest Version
+This README covers the **latest `Code.gs`** only.
 
 ## added find-clean duplicate Persons function
 This project evolves from a simple data-entry form into a more robust genealogy data engine with:
