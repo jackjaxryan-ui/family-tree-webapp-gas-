@@ -1,4 +1,4 @@
-# Code.gs — Latest Version
+# Code.gs — v1.51
 This README covers the **latest `Code.gs`** only.
 
 ## added: find-clean duplicate Persons function
