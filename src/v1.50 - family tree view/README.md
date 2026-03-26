@@ -1,9 +1,8 @@
-# Family Tree Web App v1.50
+# Code.gs — Latest Version
+This README covers the **latest `Code.gs`** only.
 
-A simple Google Apps Script web app for collecting family tree data and storing it in Google Sheets.
-
-This project is an evolution of version 1.0, introducing a more structured relationship model and new capabilities such as:
-
+## family - child relationship and support for multiple spouses
+This project evolves from a simple data-entry form into a more robust genealogy data engine with:
 - Family-based relationship system  
 - Multiple spouses support  
 - Family grouping (Families & FamilyChildren)  
