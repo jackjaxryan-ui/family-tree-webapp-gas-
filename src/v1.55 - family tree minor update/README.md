@@ -1,11 +1,4 @@
-# Code.gs — Latest Version
-
-This README covers the **latest `Code.gs`** only.
-
-For earlier development stages, refer to:
-- `src/` (v1.0, v1.50, v1.51, etc.)
-
----
+# Code.gs — v1.55
 
 ## Focus of This Version
 
