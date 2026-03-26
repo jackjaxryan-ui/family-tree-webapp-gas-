@@ -1,7 +1,7 @@
 # Code.gs — Latest Version
 This README covers the **latest `Code.gs`** only.
 
-## family - child relationship and support for multiple spouses
+## added: family - child relationship and support for multiple spouses
 This project evolves from a simple data-entry form into a more robust genealogy data engine with:
 - Family-based relationship system  
 - Multiple spouses support  
